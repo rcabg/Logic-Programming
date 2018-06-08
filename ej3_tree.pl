@@ -52,5 +52,4 @@ solveEx3(Tree, Node, Result) :-
   sort(List, Sorted),
   nextto(Node, Result, Sorted).
 
-solveEx3(Tree, Node, Result) :-
-  Result is -1.
+solveEx3(Tree, Node, []).

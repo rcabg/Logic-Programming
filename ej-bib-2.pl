@@ -10,7 +10,7 @@ buscaautor(Cdn, _, []) :-
   string_length(Cdn, 0).
 
 buscaautor(Cdn, Bb1, L) :-
-  buscaIndexAutor(Cdn, Bb1, L, 0).
+  buscaIndexAutor(Cdn, Bbl, L, 0).
 
 buscaIndexAutor(Cdn, [X], L, Index) :-
   autor(X, Autor),
@@ -40,3 +40,46 @@ buscaIndexAutor(Cdn, [X|Rest], L, Index) :-
   append([Index], NewList, L).
 
 %%% Predicado 2:
+dime(Bbl, Clv, Pos, Cdn) :-
+  Clv = "titulo",
+  checkPosOnList(Bbl, Pos),
+  buscaTituloEnPos(Bbl, Pos, 0, Cdn).
+
+dime(Bbl, Clv, Pos, Cdn) :-
+  Clv = "autor",
+  buscaAutorEnPos(Bbl, Pos, 0, Cdn).
+
+dime(Bbl, Clv, Pos, Cdn) :-
+  Clv = "fecha",
+  buscaFechaEnPos(Bbl, Pos, 0, Cdn).
+
+dime(_, _, Pos, _) :-
+  write("Position "), write(Pos), write(" is out of range!"),nl,fail.
+
+checkPosOnList(List, Pos) :-
+  length(List, Elements),
+  Pos < Elements.
+
+buscaTituloEnPos([X|Rest], Pos, CurrentPos, Cdn) :-
+  Pos > CurrentPos,
+  NextPos is CurrentPos + 1,
+  buscaTituloEnPos(Rest, Pos, NextPos, Cdn).
+
+buscaTituloEnPos([X|Rest], _, _, Cdn) :-
+  obra(X, Cdn).
+
+buscaAutorEnPos([X|Rest], Pos, CurrentPos, Cdn) :-
+  Pos > CurrentPos,
+  NextPos is CurrentPos + 1,
+  buscaAutorEnPos(Rest, Pos, NextPos, Cdn).
+
+buscaAutorEnPos([X|Rest], _, _, Cdn) :-
+  autor(X, Cdn).
+
+buscaFechaEnPos([X|Rest], Pos, CurrentPos, Cdn) :-
+  Pos > CurrentPos,
+  NextPos is CurrentPos + 1,
+  buscaFechaEnPos(Rest, Pos, NextPos, Cdn).
+
+buscaFechaEnPos([X|Rest], _, _, Cdn) :-
+  fecha(X, Cdn).

@@ -24,6 +24,6 @@ checkList([X|Rest], Prev, Result) :-
   X =:= Can,                             % Comprueba que es igual al actual.
   checkList(Rest, Can, Result).          % Itera de forma recurrente el reso de la lista.
 
-checkList([X|Rest], Prev, Result) :-
+checkList(_, Prev, Result) :-
   Result is Prev + 1.                    % Si la comprobación con el número anterior falla,
                                          % el resultado es el anterior + 1.

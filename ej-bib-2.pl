@@ -4,6 +4,7 @@ autor([_, Autor, _], Autor).
 obra([Obra, _, _], Obra).
 fecha([_, _, Fecha], Fecha).
 
+%%% Predicado 1: buscaautor
 buscaautor(_, [], []).
 buscaautor(Cdn, _, []) :-
   string_length(Cdn, 0).
@@ -21,7 +22,7 @@ buscaIndexAutor(Cdn, [X], [], Index) :-
   not(Cdn = Autor),
   length(L, 0).
 
-buscaIndexAutor(Cdn, [X], L, Index) :-
+buscaIndexAutor(Cdn, [X], [], Index) :-
   autor(X, Autor),
   not(Cdn = Autor).
 
@@ -36,12 +37,6 @@ buscaIndexAutor(Cdn, [X|Rest], L, Index) :-
   Cdn = Autor,
   NewIndex is Index + 1,
   buscaIndexAutor(Cdn, Rest, NewList, NewIndex),
-  length(NewList, 0),
   append([Index], NewList, L).
 
-buscaIndexAutor(Cdn, [X|Rest], L, Index) :-
-  autor(X, Autor),
-  Cdn = Autor,
-  NewIndex is Index + 1,
-  buscaIndexAutor(Cdn, Rest, NewList, NewIndex),
-  append([Index], NewList, L).
+%%% Predicado 2:

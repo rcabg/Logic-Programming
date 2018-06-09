@@ -144,3 +144,22 @@ cambiaFecha([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
   NextPos is CurrentPos + 1,
   cambiaFecha(Rest, Pos, NextPos, Val, NewBbl),
   append([[Obra, Autor, Val]], NewBbl, Bbl2).
+
+%%% Predicado 4:
+versiones(Bib, Cad, L) :-
+  listaTitulos(Bib, Cad, 0, L).
+
+listaTitulos([], _, _, []).
+listaTitulos([X|Rest], Cad, CurrentPos, L) :-
+  obra(X, Titulo),
+  not(Titulo = Cad),
+  NextPos is CurrentPos + 1,
+  listaTitulos(Rest, Cad, NextPos, L).
+
+listaTitulos([X|Rest], Cad, CurrentPos, L) :-
+  obra(X, Titulo),
+  Titulo = Cad,
+  autor(X, Autor), fecha(X, Fecha),
+  NextPos is CurrentPos + 1,
+  listaTitulos(Rest, Cad, NextPos, NewL),
+  append([[Autor, Fecha]], NewL, L).

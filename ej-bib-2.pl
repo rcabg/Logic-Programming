@@ -163,3 +163,34 @@ listaTitulos([X|Rest], Cad, CurrentPos, L) :-
   NextPos is CurrentPos + 1,
   listaTitulos(Rest, Cad, NextPos, NewL),
   append([[Autor, Fecha]], NewL, L).
+
+%%% Predicado 5:
+masantiguo(BV, L) :-
+  buscaMasAntiguo(BV, inf, MFecha),
+  hacerListaConFecha(BV, MFecha, 0, L).
+
+buscaMasAntiguo([X|Rest], Min, Result) :-
+  fecha(X, Fecha),
+  Fecha < Min,
+  buscaMasAntiguo(Rest, Fecha, Result).
+
+buscaMasAntiguo([X|Rest], Min, Result) :-
+  fecha(X, Fecha),
+  Fecha >= Min,
+  buscaMasAntiguo(Rest, Min, Result).
+
+buscaMasAntiguo([], Min, Min).
+
+hacerListaConFecha([], _, _, []).
+hacerListaConFecha([X|Rest], MFecha, CurrentPos, Result) :-
+  fecha(X,Fecha),
+  MFecha =:= Fecha,
+  NewPos is CurrentPos + 1,
+  hacerListaConFecha(Rest, MFecha, NewPos, NewList),
+  append([CurrentPos], NewList, Result).
+
+hacerListaConFecha([X|Rest], MFecha, CurrentPos, Result) :-
+  fecha(X,Fecha),
+  not(MFecha =:= Fecha),
+  NewPos is CurrentPos + 1,
+  hacerListaConFecha(Rest, MFecha, NewPos, Result).

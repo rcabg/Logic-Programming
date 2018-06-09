@@ -9,6 +9,8 @@
 % "solveEx3" es el predicado principal que se debe llamar para obtener
 % la solución requerida. Toma un árbol y un nodo.
 
+% Ejemplo de ejecución (árbol A4 de arboles-binarios.pdf)
+% solveEx3([[[[[],1,[]],5,[]],7,[[],3,[[],4,[]]]],6,[[[],10,[]],8,[[[],9,[]],11,[[],2,[]]]]], 4, Result).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Predicados auxiliadores para los árboles
 vacio([]).

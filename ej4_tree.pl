@@ -9,6 +9,9 @@
 % "printRootToLeafPath" es el predicado principal que se debe llamar para obtener
 % la solución requerida. Toma un árbol.
 
+% Ejemplo de ejecución (árbol A4 de arboles-binarios.pdf)
+% printRootToLeafPath([[[[[],1,[]],5,[]],7,[[],3,[[],4,[]]]],6,[[[],10,[]],8,[[[],9,[]],11,[[],2,[]]]]]).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Predicados auxiliadores para los árboles
 vacio([]).
 raiz([_,N,_], N).

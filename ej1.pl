@@ -8,6 +8,10 @@
 
 % "smallest_element" es el predicado principal que se debe llamar para obtener
 % la solución requerida. Toma una lista y da la solución.
+
+% Ejemplo de ejecución:
+% smallest_element([0,1,3,4,5],Result).
+
 smallest_element([], 0).                 % Caso lista vacía, devuelve 0.
 smallest_element([X], [X]).              % Caso lista con un valor, devuelve el valor.
 smallest_element([X, Y|Rest], Result) :- % Caso lista con dos valores o mas, itera la lista.

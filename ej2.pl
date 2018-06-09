@@ -9,6 +9,9 @@
 % "checkNumber" es el predicado principal que se debe llamar para obtener
 % la solución requerida. Toma un número y una lista.
 
+% Ejemplo de ejecución:
+% checkNumber(2, [1,3,4], Floor, Ceiling).
+
 checkNumber(A, [], A, A).                % Si no se proporciona lista, el número es la solución.
 checkNumber(A, List, Floor, Ceiling) :-
   member(A, List),                       % Comprueba si A está en la lista.

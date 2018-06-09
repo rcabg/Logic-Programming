@@ -83,3 +83,64 @@ buscaFechaEnPos([X|Rest], Pos, CurrentPos, Cdn) :-
 
 buscaFechaEnPos([X|Rest], _, _, Cdn) :-
   fecha(X, Cdn).
+
+%%% Predicado 3:
+cambia(Bbl1, Pos, Clv, Val, Bbl2) :-
+  Clv = "titulo",
+  checkPosOnList(Bbl1, Pos),
+  cambiaTitulo(Bbl1, Pos, 0, Val, Bbl2).
+
+cambia(Bbl1, Pos, Clv, Val, Bbl2) :-
+  Clv = "autor",
+  checkPosOnList(Bbl1, Pos),
+  cambiaAutor(Bbl1, Pos, 0, Val, Bbl2).
+
+cambia(Bbl1, Pos, Clv, Val, Bbl2) :-
+  Clv = "fecha",
+  checkPosOnList(Bbl1, Pos),
+  cambiaFecha(Bbl1, Pos, 0, Val, Bbl2).
+
+cambia(_, Pos, _, _, _) :-
+  write("Position "), write(Pos), write(" is out of range!"),nl,fail.
+
+cambiaTitulo([], _, _, _, []).
+cambiaTitulo([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
+  not(Pos =:= CurrentPos),
+  NextPos is CurrentPos + 1,
+  cambiaTitulo(Rest, Pos, NextPos, Val, NewBbl),
+  append([X], NewBbl, Bbl2).
+
+cambiaTitulo([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
+  autor(X, Autor),
+  fecha(X, Fecha),
+  NextPos is CurrentPos + 1,
+  cambiaTitulo(Rest, Pos, NextPos, Val, NewBbl),
+  append([[Val, Autor, Fecha]], NewBbl, Bbl2).
+
+cambiaAutor([], _, _, _, []).
+cambiaAutor([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
+  not(Pos =:= CurrentPos),
+  NextPos is CurrentPos + 1,
+  cambiaAutor(Rest, Pos, NextPos, Val, NewBbl),
+  append([X], NewBbl, Bbl2).
+
+cambiaAutor([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
+  obra(X, Obra),
+  fecha(X, Fecha),
+  NextPos is CurrentPos + 1,
+  cambiaAutor(Rest, Pos, NextPos, Val, NewBbl),
+  append([[Obra, Val, Fecha]], NewBbl, Bbl2).
+
+cambiaFecha([], _, _, _, []).
+cambiaFecha([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
+  not(Pos =:= CurrentPos),
+  NextPos is CurrentPos + 1,
+  cambiaFecha(Rest, Pos, NextPos, Val, NewBbl),
+  append([X], NewBbl, Bbl2).
+
+cambiaFecha([X|Rest], Pos, CurrentPos, Val, Bbl2) :-
+  autor(X, Autor),
+  obra(X, Obra),
+  NextPos is CurrentPos + 1,
+  cambiaFecha(Rest, Pos, NextPos, Val, NewBbl),
+  append([[Obra, Autor, Val]], NewBbl, Bbl2).
